@@ -115,7 +115,9 @@ return {
     { "<leader>lf",   function() Snacks.terminal({ "lf" }, { win = { style = "lazygit" } }) end, desc = "List Files" },
     { "<leader>ya",   function() Snacks.terminal({ "yazi" }, { win = { style = "lazygit" } }) end, desc = "Yazi" },
     { "<leader>bt",   function() Snacks.terminal({ "btm" }, { win = { style = "lazygit" } }) end, desc = "Bottom" },
-    { "<leader>ci",   function() ci_selector.ci() end, desc = "Code Intelligent" },
+    { "<leader>aa",   function() Snacks.terminal({ "claude" }, { win = { style = "lazygit" } }) end, desc = "AI Agent (Claude)" },
+    { "<leader>ac",   function() Snacks.terminal({ "codex" }, { win = { style = "lazygit" } }) end, desc = "Agent Codex" },
+    { "<leader>ag",   function() Snacks.terminal({ "gemini" }, { win = { style = "lazygit" } }) end, desc = "Agent Gemini" },
     { "<leader>rr",   send_line_to_terminal, desc = "Run current line" }
   },
 }
