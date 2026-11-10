@@ -12,6 +12,7 @@ map("n", "<leader>rc", [[<cmd>%s/\r//g|nohlsearch<CR>]], { desc = "Remove carria
 map("n", "<leader>rw", [[<cmd>%s/\s\+$//e|nohlsearch<CR>]], { desc = "Remove trailing whitespaces" })
 map("n", "<leader>s.", "<cmd>GrepPatterns<cr>", { desc = "Saved grep patterns" })
 map("n", "q;", "q:", { desc = "Command history" })
+map("n", "<leader>qr", "<cmd>restart<cr>", { desc = "Restart neovim" })
 
 -- Yank, Paste and Delete
 map("n", "<leader>Y", [["+Y]], { desc = "Yank to system clipboad" })
