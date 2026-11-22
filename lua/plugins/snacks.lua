@@ -1,10 +1,22 @@
 local ci_selector = require("common.ci_selector")
 
 local fullscreen_terminal_win = { position = "float", relative = "editor", width = 0, height = 0, border = "none" }
+local terminal_layouts = setmetatable({}, { __mode = "k" })
 
-local function fullscreen_terminal(terminal)
+local function toggle_terminal_fullscreen(terminal)
+  local opts = terminal.opts
+  local layout = terminal_layouts[terminal]
+  if layout then
+    terminal_layouts[terminal] = nil
+  elseif opts.position == "float" and opts.width == 0 and opts.height == 0 then
+    layout = vim.tbl_extend("force", opts, { position = "bottom", height = 0.4 })
+  else
+    terminal_layouts[terminal] = opts
+    layout = vim.tbl_extend("force", opts, fullscreen_terminal_win)
+  end
+
   terminal:hide()
-  terminal.opts = vim.tbl_extend("force", terminal.opts, fullscreen_terminal_win)
+  terminal.opts = layout
   terminal:show()
 end
 
@@ -71,7 +83,7 @@ return {
         },
         keys = {
           hide_slash = { "<C-\\>", "hide", desc = "Hide Terminal", mode = { "t", "n" } },
-          fullscreen = { "<leader>tf", fullscreen_terminal, desc = "Move Terminal to Fullscreen" },
+          fullscreen = { "<leader>tf", toggle_terminal_fullscreen, desc = "Toggle Terminal Fullscreen" },
         },
       },
     },
