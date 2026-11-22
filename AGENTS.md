@@ -21,3 +21,9 @@ Since this config is based on the `LazyVim` distribution, most configurations is
 If you want to search a specific documents for a plugin, look in to this directory:
 
 - `~/.local/share/$NVIM_APPNAME/lazy/plugin-name/doc/"`
+
+Alternatively, get help by running nvim headless
+
+```sh
+nvim --headless '+help LazyVim' '+%print' +qa
+```
