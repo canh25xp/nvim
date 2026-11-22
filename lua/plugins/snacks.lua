@@ -1,5 +1,30 @@
 local fullscreen_terminal_win = { position = "float", relative = "editor", width = 0, height = 0, border = "none" }
 local terminal_layouts = setmetatable({}, { __mode = "k" })
+local agent_names = { "Codex", "Claude", "Gemini" }
+local last_agent
+
+local function open_agent(agent)
+  if not agent then
+    return
+  end
+
+  local command = agent:lower()
+  if vim.fn.executable(command) ~= 1 then
+    vim.notify(agent .. " executable not found in PATH", vim.log.levels.WARN)
+    return
+  end
+
+  Snacks.terminal({ command }, { win = { style = "lazygit" } })
+  last_agent = agent
+end
+
+local function open_last_agent()
+  if last_agent then
+    open_agent(last_agent)
+  else
+    vim.ui.select(agent_names, { prompt = "Select an AI agent" }, open_agent)
+  end
+end
 
 local function toggle_terminal_fullscreen(terminal)
   local opts = terminal.opts
@@ -134,9 +159,10 @@ return {
     { "<leader>lf",   function() Snacks.terminal({ "lf" }, { win = { style = "lazygit" } }) end, desc = "List Files" },
     { "<leader>ya",   function() Snacks.terminal({ "yazi" }, { win = { style = "lazygit" } }) end, desc = "Yazi" },
     { "<leader>bt",   function() Snacks.terminal({ "btm" }, { win = { style = "lazygit" } }) end, desc = "Bottom" },
-    { "<leader>aa",   function() Snacks.terminal({ "claude" }, { win = { style = "lazygit" } }) end, desc = "AI Agent (Claude)" },
-    { "<leader>ac",   function() Snacks.terminal({ "codex" }, { win = { style = "lazygit" } }) end, desc = "Agent Codex" },
-    { "<leader>ag",   function() Snacks.terminal({ "gemini" }, { win = { style = "lazygit" } }) end, desc = "Agent Gemini" },
+    { "<leader>aa",   open_last_agent, desc = "Last AI Agent" },
+    { "<leader>ac",   function() open_agent("Codex") end, desc = "Agent Codex" },
+    { "<leader>ad",   function() open_agent("Claude") end, desc = "Agent Claude" },
+    { "<leader>ag",   function() open_agent("Gemini") end, desc = "Agent Gemini" },
     { "<leader>rr",   send_line_to_terminal, desc = "Run current line" }
   },
 }
