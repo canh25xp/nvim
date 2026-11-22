@@ -2,6 +2,12 @@ local ci_selector = require("common.ci_selector")
 
 local fullscreen_terminal_win = { position = "float", relative = "editor", width = 0, height = 0, border = "none" }
 
+local function fullscreen_terminal(terminal)
+  terminal:hide()
+  terminal.opts = vim.tbl_extend("force", terminal.opts, fullscreen_terminal_win)
+  terminal:show()
+end
+
 local function setup_terminal_exit_keymap(buf)
   local terminal = vim.b[buf].snacks_terminal
   local cmd = terminal and terminal.cmd
@@ -65,6 +71,7 @@ return {
         },
         keys = {
           hide_slash = { "<C-\\>", "hide", desc = "Hide Terminal", mode = { "t", "n" } },
+          fullscreen = { "<leader>tf", fullscreen_terminal, desc = "Move Terminal to Fullscreen" },
         },
       },
     },
