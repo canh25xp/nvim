@@ -1,5 +1,3 @@
-local ci_selector = require("common.ci_selector")
-
 local fullscreen_terminal_win = { position = "float", relative = "editor", width = 0, height = 0, border = "none" }
 local terminal_layouts = setmetatable({}, { __mode = "k" })
 
