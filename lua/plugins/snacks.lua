@@ -1,5 +1,7 @@
 local ci_selector = require("common.ci_selector")
 
+local fullscreen_terminal_win = { position = "float", relative = "editor", width = 0, height = 0, border = "none" }
+
 local function setup_terminal_exit_keymap(buf)
   local terminal = vim.b[buf].snacks_terminal
   local cmd = terminal and terminal.cmd
@@ -111,7 +113,7 @@ return {
   -- stylua: ignore
   keys = {
     { "<C-\\>",       function() Snacks.terminal() end, desc = "Toggle Terminal" },
-    { "<leader>tt",   function() Snacks.terminal(nil, { cwd = LazyVim.root(), win = { position = "float", width = 0, height = 0, border = "none" } }) end, desc = "Terminal Fullscreen" },
+    { "<leader>tt",   function() Snacks.terminal(nil, { cwd = LazyVim.root(), count = 0, win = fullscreen_terminal_win }) end, desc = "Terminal Fullscreen" },
     { "<leader>lf",   function() Snacks.terminal({ "lf" }, { win = { style = "lazygit" } }) end, desc = "List Files" },
     { "<leader>ya",   function() Snacks.terminal({ "yazi" }, { win = { style = "lazygit" } }) end, desc = "Yazi" },
     { "<leader>bt",   function() Snacks.terminal({ "btm" }, { win = { style = "lazygit" } }) end, desc = "Bottom" },
