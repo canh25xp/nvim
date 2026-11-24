@@ -105,6 +105,7 @@ return {
           winbar = "",
         },
         keys = {
+          hide_underscore = false,
           hide_slash = { "<C-\\>", "hide", desc = "Hide Terminal", mode = { "t", "n" } },
           fullscreen = { "<leader>tf", toggle_terminal_fullscreen, desc = "Toggle Terminal Fullscreen" },
         },

@@ -4,6 +4,12 @@
 
 local map = vim.keymap.set
 
+-- Use Ctrl+backslash for the terminal.
+for _, mode in ipairs({ "n", "t" }) do
+  pcall(vim.keymap.del, mode, "<C-/>")
+  pcall(vim.keymap.del, mode, "<C-_>")
+end
+
 map("i", "jk", "<ESC>", { desc = "Escape insert mode" })
 map("n", "J", "mzJ`z", { desc = "Join without moving cursor" })
 map("n", "<leader>//", [[/\<<C-r><C-w>\><cr>]], { desc = "Search word under cursor", silent = true })
